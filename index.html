@@ -6,7 +6,7 @@
 
   <title>Rajasthan Wedding Guide | Find Trusted Wedding Vendors Across Rajasthan</title>
 
-  <meta name="description" content="Discover trusted wedding photographers, venues, makeup artists, caterers, decorators and wedding professionals across Rajasthan.">
+  <meta name="description" content="Discover trusted wedding venues, planners, decorators, photographers, makeup artists, caterers and wedding professionals across Rajasthan.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-
     *{
       margin:0;
       padding:0;
@@ -23,12 +22,12 @@
 
     :root{
       --black:#0b0b0b;
-      --black2:#141414;
-      --gold:#c8a96b;
-      --gold2:#e2c98e;
-      --ivory:#f8f5ef;
+      --black2:#151515;
+      --gold:#c7a15a;
+      --gold-light:#e0c78e;
+      --ivory:#f7f3eb;
       --white:#ffffff;
-      --grey:#aaa;
+      --grey:#777;
     }
 
     html{
@@ -38,7 +37,7 @@
     body{
       font-family:'DM Sans',sans-serif;
       background:var(--ivory);
-      color:#181818;
+      color:#171717;
     }
 
     a{
@@ -49,9 +48,9 @@
     /* HEADER */
 
     header{
-      background:rgba(10,10,10,.96);
+      background:rgba(10,10,10,.97);
       color:white;
-      padding:18px 6%;
+      padding:17px 6%;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -65,7 +64,6 @@
       font-family:'Playfair Display',serif;
       font-size:25px;
       font-weight:700;
-      letter-spacing:.5px;
     }
 
     .logo span{
@@ -74,7 +72,7 @@
 
     nav{
       display:flex;
-      gap:28px;
+      gap:27px;
       align-items:center;
       font-size:14px;
     }
@@ -83,7 +81,7 @@
       color:#eee;
     }
 
-    .vendor-btn{
+    .list-btn{
       background:var(--gold);
       color:#111;
       padding:11px 18px;
@@ -94,17 +92,18 @@
     /* HERO */
 
     .hero{
-      min-height:650px;
+      min-height:660px;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
       padding:80px 20px;
       color:white;
+
       background:
-        linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,.67)),
-        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85')
-        center/cover;
+      linear-gradient(rgba(0,0,0,.60),rgba(0,0,0,.70)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85')
+      center/cover;
     }
 
     .hero-content{
@@ -112,11 +111,12 @@
     }
 
     .eyebrow{
-      color:var(--gold2);
+      color:var(--gold-light);
       text-transform:uppercase;
       letter-spacing:4px;
-      font-size:13px;
+      font-size:12px;
       margin-bottom:18px;
+      font-weight:700;
     }
 
     h1{
@@ -128,8 +128,8 @@
 
     .hero p{
       font-size:18px;
-      color:#e7e7e7;
-      max-width:720px;
+      color:#e5e5e5;
+      max-width:730px;
       margin:0 auto 38px;
       line-height:1.7;
     }
@@ -140,7 +140,7 @@
       max-width:900px;
       margin:auto;
       background:white;
-      border-radius:14px;
+      border-radius:15px;
       padding:12px;
       display:grid;
       grid-template-columns:1fr 1fr auto;
@@ -155,20 +155,19 @@
       padding:17px;
       font-size:15px;
       outline:none;
-      width:100%;
     }
 
     .search-box button{
       border:none;
       background:var(--gold);
-      padding:0 28px;
+      color:#111;
+      padding:0 30px;
       border-radius:10px;
       font-weight:700;
       cursor:pointer;
-      font-size:15px;
     }
 
-    /* GENERAL */
+    /* SECTIONS */
 
     section{
       padding:85px 6%;
@@ -176,7 +175,8 @@
 
     .section-head{
       text-align:center;
-      margin-bottom:50px;
+      max-width:750px;
+      margin:0 auto 48px;
     }
 
     .section-head small{
@@ -194,8 +194,6 @@
 
     .section-head p{
       color:#666;
-      max-width:650px;
-      margin:auto;
       line-height:1.7;
     }
 
@@ -209,17 +207,18 @@
 
     .city-card{
       height:270px;
-      border-radius:16px;
+      border-radius:17px;
       overflow:hidden;
       position:relative;
       cursor:pointer;
+      background:#222;
     }
 
     .city-card img{
       width:100%;
       height:100%;
       object-fit:cover;
-      transition:.5s;
+      transition:.45s;
     }
 
     .city-card:hover img{
@@ -229,29 +228,29 @@
     .city-overlay{
       position:absolute;
       inset:0;
-      background:linear-gradient(transparent,rgba(0,0,0,.82));
+      background:linear-gradient(transparent,rgba(0,0,0,.85));
       display:flex;
       flex-direction:column;
       justify-content:flex-end;
-      padding:24px;
+      padding:23px;
       color:white;
     }
 
     .city-overlay h3{
       font-family:'Playfair Display',serif;
-      font-size:26px;
+      font-size:27px;
     }
 
     .city-overlay span{
-      font-size:13px;
       color:#ddd;
-      margin-top:5px;
+      font-size:13px;
+      margin-top:4px;
     }
 
-    /* CATEGORY */
+    /* CATEGORIES */
 
     .categories{
-      background:#111;
+      background:#101010;
       color:white;
     }
 
@@ -266,35 +265,51 @@
     }
 
     .category{
-      background:#1a1a1a;
-      border:1px solid #282828;
-      padding:30px 20px;
-      border-radius:14px;
+      background:#181818;
+      border:1px solid #272727;
+      padding:27px 20px;
+      border-radius:15px;
       transition:.3s;
+      min-height:155px;
     }
 
     .category:hover{
-      border-color:var(--gold);
       transform:translateY(-5px);
+      border-color:var(--gold);
     }
 
     .category .icon{
-      font-size:32px;
-      margin-bottom:15px;
+      font-size:30px;
+      margin-bottom:13px;
     }
 
     .category h3{
       font-family:'Playfair Display',serif;
-      font-size:21px;
+      font-size:20px;
       margin-bottom:8px;
     }
 
     .category p{
       color:#999;
-      font-size:14px;
+      font-size:13px;
+      line-height:1.5;
     }
 
-    /* FEATURED VENDORS */
+    .view-all{
+      text-align:center;
+      margin-top:38px;
+    }
+
+    .view-all a{
+      display:inline-block;
+      border:1px solid var(--gold);
+      color:var(--gold-light);
+      padding:13px 24px;
+      border-radius:30px;
+      font-weight:700;
+    }
+
+    /* FEATURED */
 
     .vendor-grid{
       display:grid;
@@ -304,7 +319,7 @@
 
     .vendor-card{
       background:white;
-      border-radius:16px;
+      border-radius:17px;
       overflow:hidden;
       box-shadow:0 10px 35px rgba(0,0,0,.08);
       transition:.3s;
@@ -328,14 +343,14 @@
 
     .premium{
       position:absolute;
-      top:16px;
-      left:16px;
+      top:15px;
+      left:15px;
       background:var(--gold);
       color:#111;
-      font-size:12px;
-      font-weight:700;
       padding:7px 11px;
+      font-size:11px;
       border-radius:20px;
+      font-weight:700;
     }
 
     .vendor-info{
@@ -344,94 +359,126 @@
 
     .vendor-info h3{
       font-family:'Playfair Display',serif;
-      font-size:24px;
+      font-size:23px;
       margin-bottom:7px;
     }
 
     .vendor-meta{
       color:#777;
-      font-size:14px;
-      margin-bottom:16px;
+      font-size:13px;
+      margin-bottom:15px;
     }
 
     .vendor-link{
-      display:inline-block;
-      font-weight:700;
       color:#8a6528;
+      font-weight:700;
+      font-size:14px;
     }
 
-    /* PREMIUM CTA */
+    /* CUSTOMER CTA */
 
-    .premium-section{
-      background:#efe8db;
+    .discover-section{
+      background:#ede5d7;
     }
 
-    .premium-box{
+    .discover-box{
       max-width:1150px;
       margin:auto;
-      background:#0e0e0e;
+      background:#101010;
       color:white;
       border-radius:22px;
       padding:65px;
       display:grid;
       grid-template-columns:1.4fr 1fr;
-      gap:50px;
+      gap:55px;
       align-items:center;
     }
 
-    .premium-box h2{
+    .discover-box h2{
       font-family:'Playfair Display',serif;
-      font-size:42px;
-      margin-bottom:18px;
+      font-size:44px;
+      margin:12px 0 18px;
     }
 
-    .premium-box p{
+    .discover-box p{
       color:#bbb;
       line-height:1.8;
-      margin-bottom:25px;
     }
 
-    .feature-list{
+    .discover-list{
       list-style:none;
+      margin-top:24px;
     }
 
-    .feature-list li{
+    .discover-list li{
       padding:8px 0;
       color:#ddd;
     }
 
-    .feature-list li::before{
+    .discover-list li::before{
       content:"✓";
       color:var(--gold);
       margin-right:10px;
       font-weight:bold;
     }
 
-    .join-btn{
+    .discover-btn{
       display:inline-block;
+      margin-top:25px;
       background:var(--gold);
       color:#111;
-      padding:16px 25px;
+      padding:14px 22px;
       border-radius:30px;
       font-weight:700;
-      margin-top:20px;
     }
 
-    .price-box{
-      border:1px solid #333;
-      border-radius:18px;
-      padding:32px;
-      background:#151515;
+    .discover-card{
+      background:#181818;
+      border:1px solid #303030;
+      border-radius:17px;
+      padding:35px;
     }
 
-    .price-box small{
-      color:var(--gold);
-    }
-
-    .price{
+    .discover-card h3{
       font-family:'Playfair Display',serif;
-      font-size:46px;
-      margin:12px 0;
+      font-size:27px;
+      margin-bottom:14px;
+    }
+
+    .discover-card p{
+      font-size:14px;
+    }
+
+    /* TRUST */
+
+    .trust-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+
+    .trust-card{
+      text-align:center;
+      padding:30px 20px;
+      background:white;
+      border-radius:15px;
+      box-shadow:0 8px 25px rgba(0,0,0,.05);
+    }
+
+    .trust-card .icon{
+      font-size:31px;
+      margin-bottom:12px;
+    }
+
+    .trust-card h3{
+      font-family:'Playfair Display',serif;
+      margin-bottom:8px;
+    }
+
+    .trust-card p{
+      color:#777;
+      font-size:13px;
+      line-height:1.6;
     }
 
     /* FOOTER */
@@ -471,7 +518,7 @@
 
     @media(max-width:900px){
 
-      nav a:not(.vendor-btn){
+      nav a:not(.list-btn){
         display:none;
       }
 
@@ -488,7 +535,8 @@
       }
 
       .city-grid,
-      .category-grid{
+      .category-grid,
+      .trust-grid{
         grid-template-columns:repeat(2,1fr);
       }
 
@@ -496,9 +544,9 @@
         grid-template-columns:1fr;
       }
 
-      .premium-box{
+      .discover-box{
         grid-template-columns:1fr;
-        padding:38px 25px;
+        padding:40px 25px;
       }
 
       .footer-grid{
@@ -509,8 +557,17 @@
 
     @media(max-width:550px){
 
+      header{
+        padding:14px 4%;
+      }
+
       .logo{
-        font-size:20px;
+        font-size:19px;
+      }
+
+      .list-btn{
+        font-size:12px;
+        padding:9px 13px;
       }
 
       h1{
@@ -518,15 +575,45 @@
       }
 
       .hero{
-        min-height:620px;
+        min-height:630px;
       }
 
-      .city-grid,
-      .category-grid{
+      section{
+        padding:65px 5%;
+      }
+
+      .city-grid{
         grid-template-columns:1fr;
       }
 
+      .category-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+      }
+
+      .category{
+        padding:20px 14px;
+        min-height:150px;
+      }
+
+      .category h3{
+        font-size:17px;
+      }
+
+      .category p{
+        font-size:12px;
+      }
+
       .section-head h2{
+        font-size:34px;
+      }
+
+      .trust-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      }
+
+      .discover-box h2{
         font-size:34px;
       }
 
@@ -547,7 +634,7 @@
     <a href="#cities">Cities</a>
     <a href="#categories">Categories</a>
     <a href="#vendors">Vendors</a>
-    <a href="#join" class="vendor-btn">List Your Business</a>
+    <a href="#vendors" class="list-btn">Explore Vendors</a>
   </nav>
 
 </header>
@@ -558,7 +645,7 @@
   <div class="hero-content">
 
     <div class="eyebrow">
-      Rajasthan's Wedding Marketplace
+      Discover Wedding Professionals Across Rajasthan
     </div>
 
     <h1>
@@ -566,8 +653,8 @@
     </h1>
 
     <p>
-      Discover trusted photographers, venues, makeup artists,
-      caterers, decorators and wedding professionals across Rajasthan.
+      Discover venues, planners, decorators, photographers, makeup artists,
+      caterers and trusted wedding professionals across Rajasthan.
     </p>
 
     <div class="search-box">
@@ -578,23 +665,33 @@
         <option>Udaipur</option>
         <option>Jodhpur</option>
         <option>Ajmer</option>
+        <option>Kota</option>
+        <option>Bikaner</option>
         <option>Sikar</option>
         <option>Didwana</option>
         <option>Kuchaman</option>
         <option>Makrana</option>
         <option>Ladnun</option>
+        <option>Nagaur</option>
       </select>
 
       <select id="category">
         <option value="">Select Category</option>
-        <option>Wedding Photographer</option>
-        <option>Wedding Venue</option>
-        <option>Makeup Artist</option>
-        <option>Caterer</option>
-        <option>Decorator</option>
+        <option>Wedding Venues</option>
+        <option>Wedding Planners</option>
+        <option>Decorators & Tent House</option>
+        <option>Caterers</option>
+        <option>Photographers & Films</option>
+        <option>Makeup Artists</option>
+        <option>Bridal Wear</option>
+        <option>Groom Wear</option>
+        <option>Jewellery</option>
+        <option>Mehendi Artists</option>
+        <option>Choreographers</option>
+        <option>Anchors & Emcees</option>
         <option>DJ & Sound</option>
-        <option>Wedding Planner</option>
-        <option>Bridal & Groom Wear</option>
+        <option>Band, Dhol & Ghodi</option>
+        <option>Pandit & Wedding Priest</option>
       </select>
 
       <button onclick="findVendor()">
@@ -621,7 +718,7 @@
   <div class="city-grid">
 
     <div class="city-card">
-      <img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80">
+      <img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=900&q=80">
       <div class="city-overlay">
         <h3>Jaipur</h3>
         <span>Explore Wedding Vendors</span>
@@ -629,7 +726,7 @@
     </div>
 
     <div class="city-card">
-      <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80">
+      <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=900&q=80">
       <div class="city-overlay">
         <h3>Udaipur</h3>
         <span>Explore Wedding Vendors</span>
@@ -637,7 +734,7 @@
     </div>
 
     <div class="city-card">
-      <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80">
+      <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80">
       <div class="city-overlay">
         <h3>Jodhpur</h3>
         <span>Explore Wedding Vendors</span>
@@ -645,7 +742,7 @@
     </div>
 
     <div class="city-card">
-      <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80">
+      <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=900&q=80">
       <div class="city-overlay">
         <h3>Didwana</h3>
         <span>Explore Wedding Vendors</span>
@@ -661,62 +758,190 @@
 
   <div class="section-head">
     <small>Everything For Your Wedding</small>
+
     <h2>Browse Wedding Categories</h2>
+
     <p>
-      Find trusted professionals for every part of your wedding.
+      Find professionals and services for every part of your wedding celebration.
     </p>
   </div>
 
   <div class="category-grid">
 
     <div class="category">
-      <div class="icon">📸</div>
-      <h3>Photographers</h3>
-      <p>Wedding, candid, cinematic & traditional.</p>
-    </div>
-
-    <div class="category">
       <div class="icon">🏰</div>
       <h3>Wedding Venues</h3>
-      <p>Hotels, resorts, gardens & banquet halls.</p>
-    </div>
-
-    <div class="category">
-      <div class="icon">💄</div>
-      <h3>Makeup Artists</h3>
-      <p>Bridal makeup & beauty professionals.</p>
-    </div>
-
-    <div class="category">
-      <div class="icon">🍽️</div>
-      <h3>Caterers</h3>
-      <p>Wedding catering and food services.</p>
-    </div>
-
-    <div class="category">
-      <div class="icon">🌸</div>
-      <h3>Decorators</h3>
-      <p>Wedding decor, floral & theme setups.</p>
-    </div>
-
-    <div class="category">
-      <div class="icon">🎧</div>
-      <h3>DJ & Sound</h3>
-      <p>Professional DJ, music & sound setup.</p>
+      <p>Hotels, resorts, banquet halls, gardens and palaces.</p>
     </div>
 
     <div class="category">
       <div class="icon">💍</div>
       <h3>Wedding Planners</h3>
-      <p>Complete wedding planning services.</p>
+      <p>Complete wedding planning and event management.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🌸</div>
+      <h3>Decorators & Tent House</h3>
+      <p>Wedding decoration, flowers, themes and tents.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🍽️</div>
+      <h3>Caterers</h3>
+      <p>Wedding catering, food counters and hospitality.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">📸</div>
+      <h3>Photographers & Films</h3>
+      <p>Wedding photography, candid, cinematic and traditional.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">💄</div>
+      <h3>Makeup Artists</h3>
+      <p>Bridal makeup, hairstyling and beauty professionals.</p>
     </div>
 
     <div class="category">
       <div class="icon">👗</div>
-      <h3>Wedding Fashion</h3>
-      <p>Bridal & groom wear and accessories.</p>
+      <h3>Bridal Wear</h3>
+      <p>Lehengas, sarees and bridal fashion collections.</p>
     </div>
 
+    <div class="category">
+      <div class="icon">🤵</div>
+      <h3>Groom Wear</h3>
+      <p>Sherwani, suits, safa and groom styling.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">💎</div>
+      <h3>Jewellery</h3>
+      <p>Bridal jewellery, accessories and jewellery rentals.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🌿</div>
+      <h3>Mehendi Artists</h3>
+      <p>Bridal, traditional and designer mehendi artists.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">💃</div>
+      <h3>Choreographers</h3>
+      <p>Sangeet, couple dance and family performances.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎤</div>
+      <h3>Anchors & Emcees</h3>
+      <p>Professional wedding anchors and event hosts.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎧</div>
+      <h3>DJ & Sound</h3>
+      <p>DJ, sound, lighting and entertainment setup.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🥁</div>
+      <h3>Band, Dhol & Ghodi</h3>
+      <p>Wedding bands, dhol, ghodi, baggi and baraat services.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🕉️</div>
+      <h3>Pandit & Wedding Priest</h3>
+      <p>Pheras, rituals and traditional wedding ceremonies.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">💌</div>
+      <h3>Wedding Invitations</h3>
+      <p>Printed cards, digital invitations and video invites.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🌹</div>
+      <h3>Florists</h3>
+      <p>Varmala, flowers and floral wedding arrangements.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">💡</div>
+      <h3>LED, Lights & Production</h3>
+      <p>LED walls, stage lighting and event production.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🚘</div>
+      <h3>Wedding Cars</h3>
+      <p>Luxury, vintage and premium wedding vehicles.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🚌</div>
+      <h3>Guest Transport</h3>
+      <p>Bus, traveller and wedding guest transportation.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🏨</div>
+      <h3>Hotels & Accommodation</h3>
+      <p>Hotels and guest stay arrangements for weddings.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">✨</div>
+      <h3>Bridal Entry & Varmala</h3>
+      <p>Special entries, varmala concepts and stage effects.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎂</div>
+      <h3>Cakes & Desserts</h3>
+      <p>Wedding cakes, desserts and speciality counters.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎁</div>
+      <h3>Wedding Gifts</h3>
+      <p>Return gifts, hampers and personalised wedding gifts.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎭</div>
+      <h3>Folk & Live Artists</h3>
+      <p>Rajasthani folk artists, singers and live performers.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎺</div>
+      <h3>Shehnai & Live Music</h3>
+      <p>Traditional music and live instrumental performances.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">👑</div>
+      <h3>Safa & Groom Accessories</h3>
+      <p>Safa, pagdi and traditional groom accessories.</p>
+    </div>
+
+    <div class="category">
+      <div class="icon">🎪</div>
+      <h3>Wedding Rentals</h3>
+      <p>Furniture, props, decor items and wedding rentals.</p>
+    </div>
+
+  </div>
+
+  <div class="view-all">
+    <a href="#">
+      View All Wedding Categories →
+    </a>
   </div>
 
 </section>
@@ -725,10 +950,12 @@
 <section id="vendors">
 
   <div class="section-head">
-    <small>Premium Professionals</small>
+    <small>Selected Professionals</small>
+
     <h2>Featured Wedding Vendors</h2>
+
     <p>
-      Explore selected premium wedding professionals across Rajasthan.
+      Explore featured wedding professionals from Rajasthan.
     </p>
   </div>
 
@@ -738,14 +965,16 @@
 
       <div class="vendor-image">
         <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80">
-        <span class="premium">PREMIUM</span>
+        <span class="premium">FEATURED</span>
       </div>
 
       <div class="vendor-info">
-        <h3>Premium Photographer</h3>
+        <h3>Wedding Photographer</h3>
+
         <div class="vendor-meta">
-          Wedding Photographer • Rajasthan
+          Photography & Films • Rajasthan
         </div>
+
         <a class="vendor-link" href="#">
           View Full Profile →
         </a>
@@ -758,14 +987,16 @@
 
       <div class="vendor-image">
         <img src="https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=900&q=80">
-        <span class="premium">PREMIUM</span>
+        <span class="premium">FEATURED</span>
       </div>
 
       <div class="vendor-info">
         <h3>Royal Wedding Venue</h3>
+
         <div class="vendor-meta">
           Wedding Venue • Rajasthan
         </div>
+
         <a class="vendor-link" href="#">
           View Full Profile →
         </a>
@@ -778,14 +1009,16 @@
 
       <div class="vendor-image">
         <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=900&q=80">
-        <span class="premium">PREMIUM</span>
+        <span class="premium">FEATURED</span>
       </div>
 
       <div class="vendor-info">
         <h3>Bridal Makeup Studio</h3>
+
         <div class="vendor-meta">
           Makeup Artist • Rajasthan
         </div>
+
         <a class="vendor-link" href="#">
           View Full Profile →
         </a>
@@ -798,64 +1031,95 @@
 </section>
 
 
-<section class="premium-section" id="join">
+<section class="discover-section">
 
-  <div class="premium-box">
+  <div class="discover-box">
 
     <div>
 
-      <small style="color:#c8a96b;letter-spacing:2px;">
-        FOR WEDDING PROFESSIONALS
+      <small style="color:#c7a15a;letter-spacing:3px;">
+        PLAN YOUR WEDDING
       </small>
 
       <h2>
-        Build Your Premium Digital Wedding Profile
+        Everything You Need For Your Rajasthan Wedding
       </h2>
 
       <p>
-        Showcase your business with a professional profile,
-        unique web page, gallery, video, direct WhatsApp,
-        Google Maps, QR and more.
+        Browse wedding professionals by city and category,
+        explore their full profiles, view their work and connect
+        directly with the right vendor for your celebration.
       </p>
 
-      <ul class="feature-list">
-        <li>Premium Vendor Web Page</li>
-        <li>Photos & Video Gallery</li>
-        <li>WhatsApp & Call Buttons</li>
-        <li>Google Maps Integration</li>
-        <li>Instagram & Social Links</li>
-        <li>Personal QR Code</li>
-        <li>Google Review QR</li>
-        <li>Priority Vendor Placement</li>
-        <li>Google + AI Search Ready Profile</li>
+      <ul class="discover-list">
+        <li>Explore Vendors City Wise</li>
+        <li>Browse Wedding Categories</li>
+        <li>View Vendor Photos & Videos</li>
+        <li>Read Services & Business Information</li>
+        <li>Call or WhatsApp Vendors Directly</li>
+        <li>View Google Maps & Social Profiles</li>
       </ul>
 
-      <a href="#" class="join-btn">
-        Join Rajasthan Wedding Guide
+      <a href="#categories" class="discover-btn">
+        Explore Wedding Vendors
       </a>
 
     </div>
 
-    <div class="price-box">
 
-      <small>
-        PREMIUM DIGITAL PROFILE
-      </small>
+    <div class="discover-card">
 
-      <div class="price">
-        ₹15,000
-      </div>
+      <h3>
+        City → Category → Vendor
+      </h3>
 
       <p>
-        First year premium membership
+        Choose your city, select the service you need and
+        explore wedding professionals with detailed digital
+        profiles designed to make wedding planning easier.
       </p>
 
-      <hr style="border-color:#333;margin:22px 0;">
+    </div>
 
-      <p>
-        Renewal ₹5,100 / year
-      </p>
+  </div>
 
+</section>
+
+
+<section>
+
+  <div class="section-head">
+    <small>Why Rajasthan Wedding Guide</small>
+
+    <h2>
+      Wedding Planning Made Easier
+    </h2>
+  </div>
+
+  <div class="trust-grid">
+
+    <div class="trust-card">
+      <div class="icon">📍</div>
+      <h3>City Based Search</h3>
+      <p>Find wedding professionals in your preferred Rajasthan city.</p>
+    </div>
+
+    <div class="trust-card">
+      <div class="icon">🗂️</div>
+      <h3>Easy Categories</h3>
+      <p>Browse all important wedding services in one place.</p>
+    </div>
+
+    <div class="trust-card">
+      <div class="icon">👤</div>
+      <h3>Detailed Profiles</h3>
+      <p>Explore vendor information, photos, services and contact details.</p>
+    </div>
+
+    <div class="trust-card">
+      <div class="icon">📱</div>
+      <h3>Direct Contact</h3>
+      <p>Connect directly with vendors through call and WhatsApp.</p>
     </div>
 
   </div>
@@ -873,34 +1137,36 @@
         Rajasthan <span>Wedding Guide</span>
       </div>
 
-      <p style="margin-top:15px;max-width:430px;">
-        Rajasthan's wedding vendor discovery and digital
-        profile platform connecting couples with trusted
-        wedding professionals.
+      <p style="margin-top:15px;max-width:450px;">
+        Discover wedding venues, planners, photographers,
+        makeup artists, decorators, caterers and wedding
+        professionals across Rajasthan.
       </p>
 
     </div>
+
 
     <div>
 
       <h3>Explore</h3>
 
       <p>
-        <a href="#cities">Cities</a><br>
-        <a href="#categories">Categories</a><br>
+        <a href="#cities">Wedding Cities</a><br>
+        <a href="#categories">Wedding Categories</a><br>
         <a href="#vendors">Featured Vendors</a>
       </p>
 
     </div>
 
+
     <div>
 
-      <h3>For Vendors</h3>
+      <h3>Rajasthan Wedding Guide</h3>
 
       <p>
-        <a href="#join">List Your Business</a><br>
-        Premium Profile<br>
-        Vendor Login
+        About Us<br>
+        Contact Us<br>
+        List Your Business
       </p>
 
     </div>
@@ -918,11 +1184,16 @@
 
 function findVendor(){
 
-  const city = document.getElementById("city").value;
-  const category = document.getElementById("category").value;
+  const city =
+  document.getElementById("city").value;
+
+  const category =
+  document.getElementById("category").value;
 
   if(!city && !category){
+
     alert("Please select a city or wedding category.");
+
     return;
   }
 
@@ -936,7 +1207,10 @@ function findVendor(){
     message += " in " + city;
   }
 
-  alert(message + ". Vendor directory is being prepared.");
+  alert(
+    message +
+    ". Vendor listings will appear here."
+  );
 
 }
 
