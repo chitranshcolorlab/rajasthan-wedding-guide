@@ -1,0 +1,1 @@
+window.RWG_APPROVED_VENDORS = [{ id: "RWG-20261002-122123-755", businessName: "TEST Wedding Studio", ownerName: "Test Owner", category: "Photographers & Films", city: "Didwana", status: "Approved" }];
