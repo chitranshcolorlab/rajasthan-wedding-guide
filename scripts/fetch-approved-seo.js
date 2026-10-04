@@ -1,0 +1,9 @@
+const fs=require('fs');
+const API='https://script.google.com/macros/s/AKfycbz8SfXfcYwH5giymrCmKOGf9w_kmXjXGBiQ6CtrI2Btl7K3zDja5xcLGOwSEtD-XwM8eg/exec?action=list';
+const aliases={"Photographers & Films":["photographers & films","photographers","photography & films"],"Mehendi Artists":["mehendi artists","mehndi artists"],"DJ & Entertainment":["dj & entertainment","dj and entertainment"],"Decorators & Tent House":["decorators & tent house","decorators and tent house"],"Anchors & Emcees":["anchors & emcees","anchors and emcees"]};
+const cats=["Wedding Venues","Photographers & Films","Makeup Artists","Decorators & Tent House","Wedding Planners","Caterers","Mehendi Artists","DJ & Entertainment","Anchors & Emcees","Wedding Rental Dresses","Bridal Wear","Groom Wear","Band, Dhol & Ghodi","Pandit & Wedding Priest","Other Wedding Service"];
+const n=s=>String(s||'').trim().toLowerCase(), p=(o,a,b)=>o[a]??o[b]??'';
+(async()=>{const r=await fetch(API,{redirect:'follow'});if(!r.ok)throw new Error('Vendor API HTTP '+r.status);const j=await r.json();if(!Array.isArray(j.items))throw new Error('Vendor API items missing');
+const keys=new Set(),vendors=[];
+for(const x of j.items){if(n(p(x,'Status','status'))!=='approved')continue;const d=p(x,'District','district'),c=p(x,'City','city'),raw=n(p(x,'Category','category'));const cat=cats.find(k=>(aliases[k]||[k]).map(n).includes(raw));if(!d||!c||!cat)continue;keys.add([d,c,cat].map(n).join('|'));vendors.push({id:p(x,'Submission ID','id'),business:p(x,'Business Name','businessName'),district:d,city:c,category:cat})}
+fs.writeFileSync('approved-seo.json',JSON.stringify({generatedAt:new Date().toISOString(),keys:[...keys].sort(),vendors},null,2)+'\n');console.log(JSON.stringify({approvedVendors:vendors.length,indexableCombinations:keys.size,keys:[...keys]}));})().catch(e=>{console.error(e);process.exit(1)});
