@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-10-04T14:36:31.937Z",
+  "keys": [
+    "didwana-kuchaman|didwana|makeup artists",
+    "didwana-kuchaman|didwana|photographers & films",
+    "didwana-kuchaman|didwana|wedding rental dresses",
+    "didwana-kuchaman|didwana|wedding venues"
+  ],
+  "vendors": [
+    {
+      "id": "RWG-REAL-CHITRANSH",
+      "business": "Chitransh Color Lab & Studio",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Photographers & Films"
+    },
+    {
+      "id": "RWG-REAL-FASHION-FLAVOUR",
+      "business": "Fashion Flavour",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Wedding Rental Dresses"
+    },
+    {
+      "id": "RWG-REAL-MADAN-MOHAN",
+      "business": "Madan Mohan Resort",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Wedding Venues"
+    },
+    {
+      "id": "RWG-REAL-HARSHITA-SALON",
+      "business": "Harshita Beauty Salon",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Makeup Artists"
+    }
+  ]
+}
