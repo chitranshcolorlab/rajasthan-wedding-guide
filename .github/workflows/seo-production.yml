@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/generate-seo.js'
       - 'scripts/validate-seo.js'
+      - 'scripts/fetch-approved-seo.js'
       - '.github/workflows/seo-production.yml'
   workflow_dispatch:
 permissions:
@@ -16,6 +17,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Fetch approved vendor SEO combinations
+        run: node scripts/fetch-approved-seo.js
       - name: Generate production SEO pages safely
         env:
           SEO_MODE: production
@@ -26,7 +29,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rajasthan
+          git add rajasthan sitemap-seo.xml approved-seo.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Deploy validated Rajasthan SEO pages safely"
           git push
