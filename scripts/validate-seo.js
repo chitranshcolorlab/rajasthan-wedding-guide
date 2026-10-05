@@ -3,7 +3,7 @@ const ROOT=path.resolve('rajasthan'), PROD='https://rajasthanweddingguide.com/';
 const files=[];
 function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);e.isDirectory()?walk(p):e.name==='index.html'&&files.push(p)}}
 walk(ROOT);
-const expected=3530, errors=[], canon=new Map();
+const categoryExpected=3530, premiumExpected=4, expected=categoryExpected+premiumExpected, errors=[], canon=new Map();
 const approved=fs.existsSync('approved-seo.json')?JSON.parse(fs.readFileSync('approved-seo.json','utf8')):{keys:[]};
 let indexableCount=0;
 function relTarget(from,href){
@@ -29,7 +29,7 @@ for(const file of files){
 const sitemap=fs.readFileSync('sitemap-seo.xml','utf8'), urls=(sitemap.match(/<url>/g)||[]).length;
 if(files.length!==expected)errors.push('page count '+files.length+' expected '+expected);
 if(urls!==approved.keys.length)errors.push('sitemap count '+urls+' expected approved combinations '+approved.keys.length);
-if(indexableCount!==approved.keys.length)errors.push('indexable page count '+indexableCount+' expected '+approved.keys.length);
+if(indexableCount!==approved.keys.length+premiumExpected)errors.push('indexable page count '+indexableCount+' expected '+(approved.keys.length+premiumExpected));
 if(canon.size!==expected)errors.push('unique canonical count '+canon.size+' expected '+expected);
 console.log(JSON.stringify({status:errors.length?'FAIL':'PASS',pages:files.length,sitemapUrls:urls,indexablePages:indexableCount,approvedCombinations:approved.keys.length,uniqueCanonicals:canon.size,errors:errors.slice(0,100)},null,2));
 if(errors.length)process.exit(1);
