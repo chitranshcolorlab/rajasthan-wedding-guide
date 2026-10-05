@@ -15,6 +15,20 @@ const css='body{margin:0;font-family:Arial,sans-serif;background:#f7f3eb;color:#
 function crumbs(a){return {'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':a.map((x,i)=>({'@type':'ListItem','position':i+1,'name':x[0],'item':x[1]}))}}
 function html(title,desc,canon,h1,nav,body,cr,indexable=false){const robots=IS_PROD&&indexable?'index,follow':'noindex,nofollow';return '<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="'+robots+'"><title>'+esc(title)+'</title><meta name="description" content="'+esc(desc)+'"><link rel="canonical" href="'+canon+'"><style>'+css+'</style><script type="application/ld+json">'+JSON.stringify(crumbs(cr))+'</script></head><body><header><b>Rajasthan Wedding Guide</b></header><main class="wrap"><nav>'+nav+'</nav><section class="hero"><h1>'+h1+'</h1><p>'+desc+'</p></section>'+body+(IS_PROD?'':'<div class="dev">DEV SEO system • noindex until production approval</div>')+'</main><footer>© 2026 Rajasthan Wedding Guide</footer></body></html>'}
 function put(file,content){fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,content)}
+const PREMIUM_STATIC=[
+ {src:'chitransh-color-lab.html',dst:'rajasthan/didwana-kuchaman/didwana/photographers-films/chitransh-color-lab/index.html',canonical:'https://rajasthanweddingguide.com/rajasthan/didwana-kuchaman/didwana/photographers-films/chitransh-color-lab/',back:'/rajasthan/didwana-kuchaman/didwana/photographers-films/'},
+ {src:'fashion-flavour-didwana.html',dst:'rajasthan/didwana-kuchaman/didwana/wedding-rental-dresses/fashion-flavour/index.html',canonical:'https://rajasthanweddingguide.com/rajasthan/didwana-kuchaman/didwana/wedding-rental-dresses/fashion-flavour/',back:'/rajasthan/didwana-kuchaman/didwana/wedding-rental-dresses/'},
+ {src:'madan-mohan-resort.html',dst:'rajasthan/didwana-kuchaman/didwana/wedding-venues/madan-mohan-resort/index.html',canonical:'https://rajasthanweddingguide.com/rajasthan/didwana-kuchaman/didwana/wedding-venues/madan-mohan-resort/',back:'/rajasthan/didwana-kuchaman/didwana/wedding-venues/'},
+ {src:'harshita-beauty-salon.html',dst:'rajasthan/didwana-kuchaman/didwana/makeup-artists/harshita-beauty-salon/index.html',canonical:'https://rajasthanweddingguide.com/rajasthan/didwana-kuchaman/didwana/makeup-artists/harshita-beauty-salon/',back:'/rajasthan/didwana-kuchaman/didwana/makeup-artists/'}
+];
+function premiumHtml(x){
+ let s=fs.readFileSync(x.src,'utf8');
+ s=s.replace(/<script>location\.replace\([\s\S]*?<\/script>/i,'');
+ s=s.replace(/<link rel="canonical"[^>]*>/ig,'').replace(/<meta name="robots"[^>]*>/ig,'').replace(/<base href="\/">/ig,'');
+ s=s.replace(/<head>/i,'<head><base href="/"><meta name="robots" content="'+(IS_PROD?'index,follow':'noindex,nofollow')+'"><link rel="canonical" href="'+x.canonical+'">');
+ s=s.replace(/href="didwana-(?:photographers|venues|makeup-artists)\.html"/g,'href="'+x.back+'"').replace(/href="didwana\.html"/g,'href="'+x.back+'"');
+ return s;
+}
 fs.rmSync('rajasthan',{recursive:true,force:true});
 const districts=Object.keys(DATA);
 put('rajasthan/index.html',html('Wedding Vendors in Rajasthan | Rajasthan Wedding Guide','Explore wedding vendors across Rajasthan by district, city and category.',ROOT,'Wedding Vendors in Rajasthan','Rajasthan','<section class="grid">'+districts.map(d=>'<a class="card" href="./'+slug(d)+'/">'+d+'</a>').join('')+'</section>',[['Rajasthan',ROOT]]));
@@ -27,6 +41,7 @@ const urls=[];
 if(IS_PROD){for(const d of Object.keys(DATA)){const du=ROOT+slug(d)+'/';for(const city of DATA[d]){const cu=du+slug(city)+'/';for(const [cat,catSlug] of CATS)if(INDEXABLE.has(seoKey(d,city,cat)))urls.push(cu+catSlug+'/')}}}
 else {urls.push(ROOT);for(const d of Object.keys(DATA)){const du=ROOT+slug(d)+'/';urls.push(du);for(const city of DATA[d]){const cu=du+slug(city)+'/';urls.push(cu);for(const [,catSlug] of CATS)urls.push(cu+catSlug+'/')}}}
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+urls.map(u=>'  <url><loc>'+u+'</loc></url>').join('\n')+'\n</urlset>\n';
+for(const x of PREMIUM_STATIC) put(x.dst,premiumHtml(x));
 fs.writeFileSync('sitemap-seo.xml',sitemap);
 fs.writeFileSync('robots-dev.txt','User-agent: *\nDisallow: /rajasthan/\n# DEV safety: generated SEO pages remain noindex,nofollow and are not submitted to search engines.\n');
 console.log(JSON.stringify({districts:Object.keys(DATA).length,cities,pages,categories:CATS.length,sitemapUrls:urls.length,indexing:IS_PROD?('AUTO '+INDEXABLE.size+' INDEXABLE'):'NOINDEX DEV'}));
