@@ -36,7 +36,10 @@ function doPost(e) {
     console.log('RWG POST: ' + JSON.stringify({action:body.action,id:body.id,status:body.status}));
 
     if (body.action === 'submit') return submitVendor_(body);
-    if (body.action === 'status') return updateStatus_(body);
+    if (body.action === 'status') {
+      if (!verifyAdmin_(body.idToken)) return json_({ok:false,error:'Unauthorized admin request'});
+      return updateStatus_(body);
+    }
     return json_({ok:false,error:'Unsupported action'});
   } catch (err) {
     console.error('RWG POST ERROR: ' + String(err));
@@ -120,4 +123,19 @@ function rowObject_(headers,row) {
 
 function json_(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function verifyAdmin_(token) {
+  if (!token || typeof token !== 'string') return false;
+  try {
+    const response = UrlFetchApp.fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + encodeURIComponent(token), {muteHttpExceptions:true});
+    if (response.getResponseCode() !== 200) return false;
+    const claims = JSON.parse(response.getContentText());
+    return claims.aud === '180810306472-6u3ujevmmm3hhvjim4jfll136tn5b5dc.apps.googleusercontent.com'
+      && ['accounts.google.com','https://accounts.google.com'].includes(claims.iss)
+      && Number(claims.exp) > Math.floor(Date.now()/1000)
+      && (claims.email_verified === true || claims.email_verified === 'true')
+      && String(claims.email || '').toLowerCase() === 'sharadmn29@gmail.com'
+      && !!claims.sub;
+  } catch (_) { return false; }
 }
