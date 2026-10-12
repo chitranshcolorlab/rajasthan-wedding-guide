@@ -23,7 +23,7 @@ function doGet(e) {
     if (values.length < 2) return json_({ok:true,items:[]});
 
     const headers = values[0];
-    const items = values.slice(1).filter(r => r[0]).map(r => rowObject_(headers,r));
+    const items = values.slice(1).filter(r => r[0]).map(r => rowObject_(headers,r)).filter(v => String(v.Status || '').trim() === 'Approved').map(v => ({'Submission ID':v['Submission ID'] || '', 'Business Name':v['Business Name'] || '', 'Owner Name':v['Owner Name'] || '', 'Category':v.Category || '', 'City / District':v['City / District'] || v.City || '', 'Mobile':v.Mobile || '', 'WhatsApp':v.WhatsApp || '', 'Business Description':v['Business Description'] || v.About || '', 'Owner Photo URL':v['Owner Photo URL'] || v['Logo URL'] || '', Status:'Approved'}));
     return json_({ok:true,items:items});
   } catch (err) {
     return json_({ok:false,error:String(err)});
