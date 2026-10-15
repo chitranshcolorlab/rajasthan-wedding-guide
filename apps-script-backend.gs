@@ -140,3 +140,10 @@ function verifyAdmin_(token) {
       && !!claims.sub;
   } catch (_) { return false; }
 }
+
+function adminList_(body) {
+  if (!verifyAdmin_(body.idToken)) return json_({ok:false,error:'Unauthorized admin request'});
+  const values = getSheet_().getDataRange().getDisplayValues();
+  if (values.length < 2) return json_({ok:true,items:[]});
+  return json_({ok:true,items:values.slice(1).filter(row => row[0]).map(row => rowObject_(values[0],row))});
+}
