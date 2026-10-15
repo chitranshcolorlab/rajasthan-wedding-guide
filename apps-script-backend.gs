@@ -23,7 +23,7 @@ function doGet(e) {
     if (values.length < 2) return json_({ok:true,items:[]});
 
     const headers = values[0];
-    const items = values.slice(1).filter(r => r[0]).map(r => rowObject_(headers,r));
+    const items = values.slice(1).filter(r => r[0]).map(r => rowObject_(headers,r)).filter(v => String(v.Status || '').trim() === 'Approved').map(v => ({'Submission ID':v['Submission ID'] || '', 'Business Name':v['Business Name'] || '', 'Owner Name':v['Owner Name'] || '', 'Category':v.Category || '', 'City / District':v['City / District'] || v.City || '', 'Mobile':v.Mobile || '', 'WhatsApp':v.WhatsApp || '', 'Business Description':v['Business Description'] || v.About || '', 'Owner Photo URL':v['Owner Photo URL'] || v['Logo URL'] || '', Status:'Approved'}));
     return json_({ok:true,items:items});
   } catch (err) {
     return json_({ok:false,error:String(err)});
@@ -35,8 +35,12 @@ function doPost(e) {
     const body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     console.log('RWG POST: ' + JSON.stringify({action:body.action,id:body.id,status:body.status}));
 
-    if (body.action === 'submit') return submitVendor_(body);
-    if (body.action === 'status') return updateStatus_(body);
+    if (body.action === 'submit' || body.action === 'register-basic') return submitVendor_(body);
+    if (body.action === 'admin-list') return adminList_(body);
+    if (body.action === 'status') {
+      if (!verifyAdmin_(body.idToken)) return json_({ok:false,error:'Unauthorized admin request'});
+      return updateStatus_(body);
+    }
     return json_({ok:false,error:'Unsupported action'});
   } catch (err) {
     console.error('RWG POST ERROR: ' + String(err));
@@ -45,6 +49,11 @@ function doPost(e) {
 }
 
 function submitVendor_(body) {
+  if (body.action === 'register-basic') {
+    if (!body.district || !body.ownerPhoto || !body.ownerPhoto.data || !body.services || String(body.services).length > 100) return json_({ok:false,error:'Required free listing details missing'});
+    body.logo = body.ownerPhoto;
+    body.about = body.services;
+  }
   const sheet = getSheet_();
   if (!body.businessName || !body.ownerName || !body.mobile || !body.whatsapp || !body.category || !body.city) {
     return json_({ok:false,error:'Required vendor information is missing.'});
@@ -120,4 +129,26 @@ function rowObject_(headers,row) {
 
 function json_(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function verifyAdmin_(token) {
+  if (!token || typeof token !== 'string') return false;
+  try {
+    const response = UrlFetchApp.fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + encodeURIComponent(token), {muteHttpExceptions:true});
+    if (response.getResponseCode() !== 200) return false;
+    const claims = JSON.parse(response.getContentText());
+    return claims.aud === '180810306472-6u3ujevmmm3hhvjim4jfll136tn5b5dc.apps.googleusercontent.com'
+      && ['accounts.google.com','https://accounts.google.com'].includes(claims.iss)
+      && Number(claims.exp) > Math.floor(Date.now()/1000)
+      && (claims.email_verified === true || claims.email_verified === 'true')
+      && String(claims.email || '').toLowerCase() === 'sharadmn29@gmail.com'
+      && !!claims.sub;
+  } catch (_) { return false; }
+}
+
+function adminList_(body) {
+  if (!verifyAdmin_(body.idToken)) return json_({ok:false,error:'Unauthorized admin request'});
+  const values = getSheet_().getDataRange().getDisplayValues();
+  if (values.length < 2) return json_({ok:true,items:[]});
+  return json_({ok:true,items:values.slice(1).filter(row => row[0]).map(row => rowObject_(values[0],row))});
 }
