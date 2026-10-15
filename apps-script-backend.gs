@@ -49,6 +49,11 @@ function doPost(e) {
 }
 
 function submitVendor_(body) {
+  if (body.action === 'register-basic') {
+    if (!body.district || !body.ownerPhoto || !body.ownerPhoto.data || !body.services || String(body.services).length > 100) return json_({ok:false,error:'Required free listing details missing'});
+    body.logo = body.ownerPhoto;
+    body.about = body.services;
+  }
   const sheet = getSheet_();
   if (!body.businessName || !body.ownerName || !body.mobile || !body.whatsapp || !body.category || !body.city) {
     return json_({ok:false,error:'Required vendor information is missing.'});
