@@ -36,6 +36,7 @@ function doPost(e) {
     console.log('RWG POST: ' + JSON.stringify({action:body.action,id:body.id,status:body.status}));
 
     if (body.action === 'submit') return submitVendor_(body);
+    if (body.action === 'admin-list') return adminList_(body);
     if (body.action === 'status') {
       if (!verifyAdmin_(body.idToken)) return json_({ok:false,error:'Unauthorized admin request'});
       return updateStatus_(body);
