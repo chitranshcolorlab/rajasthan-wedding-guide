@@ -1,0 +1,39 @@
+name: Publish approved production vendors
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - scripts/publish-production-vendors.js
+      - tests/production-publisher.test.js
+      - vendor-catalog.json
+      - .github/workflows/vendor-production.yml
+permissions:
+  contents: write
+concurrency:
+  group: production-vendor-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'chitranshcolorlab/rajasthan-wedding-guide'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/production-publisher.test.js
+      - run: node scripts/publish-production-vendors.js
+      - name: Commit managed vendor profiles
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A vendors approved-vendors.json vendor-profile-history.json sitemap-vendors.xml
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Publish approved production vendor profiles'
+          git pull --rebase origin main
+          git push origin HEAD:main

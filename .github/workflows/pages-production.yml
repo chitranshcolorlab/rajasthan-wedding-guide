@@ -1,0 +1,61 @@
+name: Deploy production website
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: [Publish approved production vendors]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: production-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: >-
+      github.repository == 'chitranshcolorlab/rajasthan-wedding-guide' &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
+        github.event.workflow_run.head_branch == 'main'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Stage public website only
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,pathlib,shutil,subprocess,os
+          root=pathlib.Path('.');out=root/'_site';out.mkdir()
+          extensions={'.html','.json','.xml','.txt','.webp','.png','.jpg','.jpeg','.svg','.gif','.mp4','.webm','.css','.js','.ico','.woff','.woff2'}
+          for p in root.iterdir():
+            if p.is_file() and (p.suffix.lower() in extensions or p.name=='CNAME'):shutil.copy2(p,out/p.name)
+          for name in ('rajasthan','vendors','assets'):
+            if (root/name).is_dir():shutil.copytree(root/name,out/name)
+          required=('index.html','vendor-register.html','admin-review.html','robots.txt','sitemap.xml')
+          for name in required:assert (out/name).is_file(),name
+          assert not list(out.rglob('*.gs'))
+          assert not (out/'backend').exists() and not (out/'tests').exists()
+          commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          evidence={'environment':'production','sourceCommit':commit,'deploymentRun':os.environ['GITHUB_RUN_ID']}
+          if (out/'approved-vendors.json').exists():evidence['catalogSha256']=hashlib.sha256((out/'approved-vendors.json').read_bytes()).hexdigest()
+          (out/'production-build.json').write_text(json.dumps(evidence,indent=2)+'\n')
+          PY
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

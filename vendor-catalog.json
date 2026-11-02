@@ -1,0 +1,366 @@
+{
+  "locations": {
+    "Ajmer": [
+      "Ajmer",
+      "Kishangarh",
+      "Nasirabad",
+      "Pushkar",
+      "Kekri",
+      "Sarwar"
+    ],
+    "Alwar": [
+      "Alwar",
+      "Rajgarh",
+      "Ramgarh",
+      "Thanagazi",
+      "Laxmangarh"
+    ],
+    "Balotra": [
+      "Balotra",
+      "Pachpadra",
+      "Siwana",
+      "Samdari"
+    ],
+    "Banswara": [
+      "Banswara",
+      "Kushalgarh",
+      "Bagidora",
+      "Ghatol",
+      "Garhi"
+    ],
+    "Baran": [
+      "Baran",
+      "Anta",
+      "Atru",
+      "Chhabra",
+      "Mangrol",
+      "Shahbad"
+    ],
+    "Barmer": [
+      "Barmer",
+      "Chohtan",
+      "Dhorimanna",
+      "Gudamalani",
+      "Sheo"
+    ],
+    "Beawar": [
+      "Beawar",
+      "Masuda",
+      "Vijaynagar",
+      "Raipur",
+      "Jaitaran"
+    ],
+    "Bharatpur": [
+      "Bharatpur",
+      "Bayana",
+      "Nadbai",
+      "Weir",
+      "Roopwas"
+    ],
+    "Bhilwara": [
+      "Bhilwara",
+      "Shahpura",
+      "Asind",
+      "Mandal",
+      "Mandalgarh",
+      "Jahazpur",
+      "Gulabpura"
+    ],
+    "Bikaner": [
+      "Bikaner",
+      "Nokha",
+      "Deshnoke",
+      "Lunkaransar",
+      "Kolayat",
+      "Khajuwala"
+    ],
+    "Bundi": [
+      "Bundi",
+      "Lakheri",
+      "Keshoraipatan",
+      "Nainwa",
+      "Hindoli",
+      "Indragarh"
+    ],
+    "Chittorgarh": [
+      "Chittorgarh",
+      "Nimbahera",
+      "Kapasan",
+      "Begun",
+      "Rawatbhata",
+      "Bari Sadri"
+    ],
+    "Churu": [
+      "Churu",
+      "Ratangarh",
+      "Sujangarh",
+      "Sardarshahar",
+      "Taranagar",
+      "Rajgarh"
+    ],
+    "Dausa": [
+      "Dausa",
+      "Bandikui",
+      "Lalsot",
+      "Mahwa",
+      "Sikrai"
+    ],
+    "Deeg": [
+      "Deeg",
+      "Kaman",
+      "Nagar",
+      "Kumher",
+      "Pahari"
+    ],
+    "Dholpur": [
+      "Dholpur",
+      "Bari",
+      "Rajakhera",
+      "Baseri"
+    ],
+    "Didwana-Kuchaman": [
+      "Didwana",
+      "Kuchaman City",
+      "Ladnun",
+      "Makrana",
+      "Parbatsar",
+      "Nawa"
+    ],
+    "Dungarpur": [
+      "Dungarpur",
+      "Sagwara",
+      "Aspur",
+      "Simalwara"
+    ],
+    "Hanumangarh": [
+      "Hanumangarh",
+      "Nohar",
+      "Bhadra",
+      "Pilibanga",
+      "Sangaria",
+      "Rawatsar"
+    ],
+    "Jaipur": [
+      "Jaipur",
+      "Chomu",
+      "Sambhar",
+      "Phulera",
+      "Shahpura",
+      "Jobner",
+      "Dudu",
+      "Kishangarh Renwal"
+    ],
+    "Jaisalmer": [
+      "Jaisalmer",
+      "Pokaran",
+      "Fatehgarh"
+    ],
+    "Jalore": [
+      "Jalore",
+      "Bhinmal",
+      "Sanchore",
+      "Raniwara",
+      "Ahore"
+    ],
+    "Jhalawar": [
+      "Jhalawar",
+      "Bhawani Mandi",
+      "Jhalrapatan",
+      "Aklera",
+      "Khanpur",
+      "Manohar Thana"
+    ],
+    "Jhunjhunu": [
+      "Jhunjhunu",
+      "Nawalgarh",
+      "Chirawa",
+      "Pilani",
+      "Khetri",
+      "Mandawa",
+      "Udaipurwati"
+    ],
+    "Jodhpur": [
+      "Jodhpur",
+      "Bilara",
+      "Pipar City",
+      "Bhopalgarh",
+      "Osian"
+    ],
+    "Karauli": [
+      "Karauli",
+      "Hindaun",
+      "Todabhim",
+      "Sapotra"
+    ],
+    "Khairthal-Tijara": [
+      "Khairthal",
+      "Tijara",
+      "Bhiwadi",
+      "Kishangarh Bas",
+      "Mundawar"
+    ],
+    "Kota": [
+      "Kota",
+      "Ramganj Mandi",
+      "Sangod",
+      "Itawa"
+    ],
+    "Kotputli-Behror": [
+      "Kotputli",
+      "Behror",
+      "Neemrana",
+      "Bansur",
+      "Viratnagar",
+      "Paota"
+    ],
+    "Nagaur": [
+      "Nagaur",
+      "Merta City",
+      "Degana",
+      "Jayal",
+      "Khinvsar"
+    ],
+    "Pali": [
+      "Pali",
+      "Sojat",
+      "Bali",
+      "Sumerpur",
+      "Marwar Junction",
+      "Desuri"
+    ],
+    "Phalodi": [
+      "Phalodi",
+      "Lohawat",
+      "Dechu",
+      "Bap"
+    ],
+    "Pratapgarh": [
+      "Pratapgarh",
+      "Chhoti Sadri",
+      "Arnod",
+      "Dhariawad"
+    ],
+    "Rajsamand": [
+      "Rajsamand",
+      "Nathdwara",
+      "Amet",
+      "Deogarh",
+      "Bhim",
+      "Kumbhalgarh"
+    ],
+    "Salumber": [
+      "Salumber",
+      "Sarada",
+      "Semari",
+      "Jhallara",
+      "Lasadiya"
+    ],
+    "Sawai Madhopur": [
+      "Sawai Madhopur",
+      "Gangapur City",
+      "Bonli",
+      "Chauth Ka Barwara"
+    ],
+    "Sikar": [
+      "Sikar",
+      "Fatehpur",
+      "Neem Ka Thana",
+      "Sri Madhopur",
+      "Lachhmangarh",
+      "Reengus"
+    ],
+    "Sirohi": [
+      "Sirohi",
+      "Abu Road",
+      "Mount Abu",
+      "Pindwara",
+      "Sheoganj"
+    ],
+    "Sri Ganganagar": [
+      "Sri Ganganagar",
+      "Suratgarh",
+      "Raisinghnagar",
+      "Sri Karanpur",
+      "Sadulshahar",
+      "Anupgarh"
+    ],
+    "Tonk": [
+      "Tonk",
+      "Malpura",
+      "Niwai",
+      "Deoli",
+      "Todaraisingh",
+      "Uniara"
+    ],
+    "Udaipur": [
+      "Udaipur",
+      "Fatehnagar",
+      "Bhinder",
+      "Gogunda",
+      "Kherwara",
+      "Mavli"
+    ]
+  },
+  "categories": [
+    [
+      "Wedding Venues",
+      "wedding-venues"
+    ],
+    [
+      "Photographers & Films",
+      "photographers-films"
+    ],
+    [
+      "Makeup Artists",
+      "makeup-artists"
+    ],
+    [
+      "Decorators & Tent House",
+      "decorators-tent-house"
+    ],
+    [
+      "Wedding Planners",
+      "wedding-planners"
+    ],
+    [
+      "Caterers",
+      "caterers"
+    ],
+    [
+      "Mehendi Artists",
+      "mehendi-artists"
+    ],
+    [
+      "DJ & Entertainment",
+      "dj-entertainment"
+    ],
+    [
+      "Anchors & Emcees",
+      "anchors-emcees"
+    ],
+    [
+      "Wedding Rental Dresses",
+      "wedding-rental-dresses"
+    ],
+    [
+      "Bridal Wear",
+      "bridal-wear"
+    ],
+    [
+      "Groom Wear",
+      "groom-wear"
+    ],
+    [
+      "Band, Dhol & Ghodi",
+      "band-dhol-ghodi"
+    ],
+    [
+      "Pandit & Wedding Priest",
+      "pandit-wedding-priest"
+    ],
+    [
+      "Other Wedding Service",
+      "other-wedding-service"
+    ]
+  ]
+}
