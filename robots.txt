@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /admin-review.html
+Sitemap: https://rajasthanweddingguide.com/sitemap.xml
