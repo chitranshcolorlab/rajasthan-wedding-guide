@@ -1,4 +1,4 @@
-const fs=require('fs'),path=require('path');
+const fs=require('fs'),path=require('path'),vm=require('vm');
 const ROOT=path.resolve('rajasthan'), PROD='https://rajasthanweddingguide.com/';
 const files=[];
 function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);e.isDirectory()?walk(p):e.name==='index.html'&&files.push(p)}}
@@ -20,10 +20,11 @@ for(const file of files){
  const isIndex=/name="robots" content="index,follow"/.test(c), isNoindex=/name="robots" content="noindex,nofollow"/.test(c); if(isIndex)indexableCount++; if(!isIndex&&!isNoindex)errors.push(file+': robots directive missing');
  const m=c.match(/rel="canonical" href="([^"]+)"/); if(!m)errors.push(file+': canonical missing');
  else {const u=m[1]; if(!u.startsWith(PROD))errors.push(file+': bad canonical '+u); if(canon.has(u))errors.push(file+': duplicate canonical with '+canon.get(u)); else canon.set(u,file);}
+ for(const script of c.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)){try{if(script[1].includes('application/ld+json'))JSON.parse(script[2]);else if(script[2].trim())new vm.Script(script[2]);}catch(e){errors.push(file+': invalid inline script')}}
  const hrefs=[...c.matchAll(/href=["']([^"']+)["']/g)].map(x=>x[1]);
  for(const h of hrefs){const t=relTarget(file,h); if(t&&t.includes(path.resolve('rajasthan'))&&!fs.existsSync(t))errors.push(file+': broken internal '+h);}
  if(file.split(path.sep).length>=5 && file!==path.join('rajasthan','index.html')){
-   if(c.includes('Approved ')&&!c.includes('../../../../vendor.html?id='))errors.push(file+': vendor profile link missing');
+   if(c.includes('Approved ')&&!c.includes('/vendor.html?id='))errors.push(file+': vendor profile link missing');
  }
 }
 const sitemap=fs.readFileSync('sitemap-seo.xml','utf8'), urls=(sitemap.match(/<url>/g)||[]).length;

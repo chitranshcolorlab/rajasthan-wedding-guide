@@ -20,12 +20,30 @@ jobs:
         github.event.workflow_run.head_repository.full_name == github.repository &&
         github.event.workflow_run.head_branch == 'main'))
     runs-on: ubuntu-latest
+    outputs:
+      needed: ${{ steps.source.outputs.needed }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
           persist-credentials: false
+      - name: Skip unchanged live source
+        id: source
+        run: |
+          node <<'JS'
+          const fs=require('node:fs'),{execFileSync}=require('node:child_process');
+          (async()=>{
+            const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+            let needed=true;
+            try{
+              const r=await fetch('https://rajasthanweddingguide.com/production-build.json?source='+sha,{signal:AbortSignal.timeout(20000)});
+              if(r.ok){const j=await r.json();needed=j.environment!=='production'||j.sourceCommit!==sha;}
+            }catch{}
+            fs.appendFileSync(process.env.GITHUB_OUTPUT,'needed='+needed+'\n');
+          })().catch(e=>{console.error(e.message);process.exitCode=1});
+          JS
       - name: Stage public website only
+        if: steps.source.outputs.needed == 'true'
         run: |
           python3 - <<'PY'
           import hashlib,json,pathlib,shutil,subprocess,os
@@ -45,10 +63,12 @@ jobs:
           (out/'production-build.json').write_text(json.dumps(evidence,indent=2)+'\n')
           PY
       - uses: actions/upload-pages-artifact@v3
+        if: steps.source.outputs.needed == 'true'
         with:
           path: _site
   deploy:
     needs: build
+    if: needs.build.outputs.needed == 'true'
     runs-on: ubuntu-latest
     permissions:
       pages: write

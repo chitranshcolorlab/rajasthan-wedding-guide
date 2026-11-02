@@ -29,19 +29,44 @@ function premiumHtml(x){
  s=s.replace(/href="didwana-(?:photographers|venues|makeup-artists)\.html"/g,'href="'+x.back+'"').replace(/href="didwana\.html"/g,'href="'+x.back+'"');
  return s;
 }
-fs.rmSync('rajasthan',{recursive:true,force:true});
+function categoryClient(config){
+ const root=document.getElementById('v'),norm=x=>String(x||'').trim().toLowerCase(),pick=(o,a,b)=>o[a]??o[b]??'';
+ const safe=value=>{try{const u=new URL(String(value),location.origin);return ['https:','http:'].includes(u.protocol)?u.href:''}catch{return ''}};
+ Promise.all([
+  fetch(config.api+'?action=list&_='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Vendor load failed');return r.json()}),
+  fetch('/approved-vendors.json',{cache:'no-store'}).then(r=>r.ok?r.json():{items:[]}).catch(()=>({items:[]}))
+ ]).then(([data,snapshot])=>{
+  if(data.ok!==true||!Array.isArray(data.items))throw Error('Invalid vendor list');
+  const vendors=data.items.filter(v=>norm(pick(v,'Status','status'))==='approved'&&norm(pick(v,'District','district'))===norm(config.district)&&norm(pick(v,'City','city'))===norm(config.city)&&(config.aliases[config.category]||[config.category]).map(norm).includes(norm(pick(v,'Category','category'))));
+  root.replaceChildren();
+  if(!vendors.length){const empty=document.createElement('div');empty.className='card';empty.textContent='No approved vendors listed yet.';root.append(empty);return}
+  for(const vendor of vendors){
+   const id=String(pick(vendor,'Submission ID','id')),name=String(pick(vendor,'Business Name','businessName')),card=document.createElement('article');card.className='card';
+   const image=safe(config.thumbs[id]||pick(vendor,'Logo URL','logoUrl')||String(pick(vendor,'Photo URLs','photoUrls')||'').split(/[,\n]/)[0].trim());
+   if(image){const img=document.createElement('img');img.src=image;img.alt=name;img.loading='lazy';img.style.cssText='width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px';card.append(img)}
+   const title=document.createElement('b');title.textContent=name;card.append(title);
+   const description=document.createElement('p');description.textContent=String(pick(vendor,'Services','services'));card.append(description);
+   const link=document.createElement('a'),cached=(snapshot.items||[]).find(v=>v['Submission ID']===id),route=String(cached&&cached.profilePath||'');
+   link.href=/^(?:vendors\/[a-z0-9-]+|rajasthan\/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+)\/$/.test(route)?'/'+route:(config.premium[id]||'/vendor.html?id='+encodeURIComponent(id));
+   link.textContent='View Profile →';card.append(link);root.append(card);
+  }
+ }).catch(()=>{root.replaceChildren();const error=document.createElement('div');error.className='card';error.textContent='Approved vendors could not load. Please refresh.';root.append(error)});
+}
+
+if(!IS_PROD)fs.rmSync('rajasthan',{recursive:true,force:true});
+
 const districts=Object.keys(DATA);
 put('rajasthan/index.html',html('Wedding Vendors in Rajasthan | Rajasthan Wedding Guide','Explore wedding vendors across Rajasthan by district, city and category.',ROOT,'Wedding Vendors in Rajasthan','Rajasthan','<section class="grid">'+districts.map(d=>'<a class="card" href="./'+slug(d)+'/">'+d+'</a>').join('')+'</section>',[['Rajasthan',ROOT]]));
 let cities=0,pages=1;
 for(const d of districts){const ds=slug(d),du=ROOT+ds+'/';put('rajasthan/'+ds+'/index.html',html('Wedding Vendors in '+d+' | Rajasthan Wedding Guide','Find wedding vendors across '+d+' district, Rajasthan. Browse by city or town and wedding service category.',du,'Wedding Vendors in '+d,'<a href="'+ROOT+'">Rajasthan</a> → '+d,'<section class="grid">'+DATA[d].map(c=>'<a class="card" href="./'+slug(c)+'/">'+c+'</a>').join('')+'</section>',[['Rajasthan',ROOT],[d,du]]));pages++;
 for(const c of DATA[d]){cities++;const cs=slug(c),cu=du+cs+'/';put('rajasthan/'+ds+'/'+cs+'/index.html',html('Wedding Vendors in '+c+', '+d+' | Rajasthan Wedding Guide','Find wedding vendors in '+c+', '+d+', Rajasthan. Browse photographers, venues, makeup artists, decorators, caterers and more.',cu,'Wedding Vendors in '+c+', '+d,'<a href="'+ROOT+'">Rajasthan</a> → <a href="'+du+'">'+d+'</a> → '+c,'<section class="grid">'+CATS.map(x=>'<a class="card" href="./'+x[1]+'/">'+x[0]+'</a>').join('')+'</section>',[['Rajasthan',ROOT],[d,du],[c,cu]]));pages++;
-for(const [cat,cs2] of CATS){const u=cu+cs2+'/',desc='Find approved '+cat.toLowerCase()+' in '+c+', '+d+', Rajasthan. Explore services and vendor profiles on Rajasthan Wedding Guide.';const js="<script>const CAT_ALIASES="+JSON.stringify(CAT_ALIASES)+",PREMIUM_PROFILES="+JSON.stringify(PREMIUM_PROFILES)+",PREMIUM_THUMBS="+JSON.stringify(PREMIUM_THUMBS)+";</script><section><h2>Approved "+cat+" in "+c+"</h2><div class=grid id=v><div class=card>Loading approved vendors…</div></div></section><script>fetch('"+API+"?action=list&_='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(j=>{let n=s=>String(s||'').trim().toLowerCase(),p=(o,a,b)=>o[a]??o[b]??'',a=(j.items||[]).filter(x=>n(p(x,'Status','status'))==='approved'&&n(p(x,'District','district'))===n('"+d+"')&&n(p(x,'City','city'))===n('"+c+"')&&((CAT_ALIASES['"+cat+"']||['"+cat+"']).map(n).includes(n(p(x,'Category','category')))));document.getElementById('v').innerHTML=a.length?a.map(x=>{let id=p(x,'Submission ID','id'),href=PREMIUM_PROFILES[id]||('../../../../vendor.html?id='+encodeURIComponent(id));let thumb=PREMIUM_THUMBS[id]||p(x,'Logo URL','logoUrl')||String(p(x,'Photo URLs','photoUrls')||'').split(',')[0].trim();return '<article class=card>'+(thumb?'<img src="'+thumb+'" alt="'+p(x,'Business Name','businessName')+'" loading="lazy" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px">':'')+'<b>'+p(x,'Business Name','businessName')+'</b><p>'+p(x,'Services','services')+'</p><a href='+href+'>View Profile →</a></article>'}).join('):'<div class=card>No approved vendors listed yet.</div>'}).catch(e=>{console.error(e);document.getElementById('v').innerHTML='<div class=card>Approved vendors could not load. Please refresh.</div>'})</script>";put('rajasthan/'+ds+'/'+cs+'/'+cs2+'/index.html',html(cat+' in '+c+', '+d+' | Rajasthan Wedding Guide',desc,u,cat+' in '+c+', '+d,'<a href="'+ROOT+'">Rajasthan</a> → <a href="'+du+'">'+d+'</a> → <a href="'+cu+'">'+c+'</a> → '+cat,js,[['Rajasthan',ROOT],[d,du],[c,cu],[cat,u]],INDEXABLE.has(seoKey(d,c,cat))));pages++}}}
+for(const [cat,cs2] of CATS){const u=cu+cs2+'/',desc='Find approved '+cat.toLowerCase()+' in '+c+', '+d+', Rajasthan. Explore services and vendor profiles on Rajasthan Wedding Guide.';const config={api:API,district:d,city:c,category:cat,aliases:CAT_ALIASES,premium:PREMIUM_PROFILES,thumbs:PREMIUM_THUMBS};const js='<section><h2>Approved '+esc(cat)+' in '+esc(c)+'</h2><div class=grid id=v><div class=card>Loading approved vendors…</div></div></section><script>('+categoryClient.toString()+')('+JSON.stringify(config).replace(/</g,'\\u003c')+');</script>';put('rajasthan/'+ds+'/'+cs+'/'+cs2+'/index.html',html(cat+' in '+c+', '+d+' | Rajasthan Wedding Guide',desc,u,cat+' in '+c+', '+d,'<a href="'+ROOT+'">Rajasthan</a> → <a href="'+du+'">'+d+'</a> → <a href="'+cu+'">'+c+'</a> → '+cat,js,[['Rajasthan',ROOT],[d,du],[c,cu],[cat,u]],INDEXABLE.has(seoKey(d,c,cat))));pages++}}}
 console.log(JSON.stringify({districts:districts.length,cities,pages,categories:CATS.length}));
 const urls=[];
 if(IS_PROD){for(const d of Object.keys(DATA)){const du=ROOT+slug(d)+'/';for(const city of DATA[d]){const cu=du+slug(city)+'/';for(const [cat,catSlug] of CATS)if(INDEXABLE.has(seoKey(d,city,cat)))urls.push(cu+catSlug+'/')}}}
 else {urls.push(ROOT);for(const d of Object.keys(DATA)){const du=ROOT+slug(d)+'/';urls.push(du);for(const city of DATA[d]){const cu=du+slug(city)+'/';urls.push(cu);for(const [,catSlug] of CATS)urls.push(cu+catSlug+'/')}}}
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+urls.map(u=>'  <url><loc>'+u+'</loc></url>').join('\n')+'\n</urlset>\n';
-for(const x of PREMIUM_STATIC) put(x.dst,premiumHtml(x));
+for(const x of PREMIUM_STATIC) if(!IS_PROD||!fs.existsSync(x.dst)) put(x.dst,premiumHtml(x));
 fs.writeFileSync('sitemap-seo.xml',sitemap);
 fs.writeFileSync('robots-dev.txt','User-agent: *\nDisallow: /rajasthan/\n# DEV safety: generated SEO pages remain noindex,nofollow and are not submitted to search engines.\n');
 console.log(JSON.stringify({districts:Object.keys(DATA).length,cities,pages,categories:CATS.length,sitemapUrls:urls.length,indexing:IS_PROD?('AUTO '+INDEXABLE.size+' INDEXABLE'):'NOINDEX DEV'}));

@@ -1,14 +1,11 @@
 name: Safe Rajasthan SEO Production Build
 on:
-  push:
-    paths:
-      - 'scripts/generate-seo.js'
-      - 'scripts/validate-seo.js'
-      - 'scripts/fetch-approved-seo.js'
-      - '.github/workflows/seo-production.yml'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: production-vendor-publisher
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
