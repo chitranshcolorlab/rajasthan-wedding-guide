@@ -1,12 +1,34 @@
 {
-  "generatedAt": "2026-10-05T04:53:51.567Z",
+  "generatedAt": "2026-11-11T04:46:21.614Z",
   "keys": [
+    "ajmer|ajmer|wedding planners",
     "didwana-kuchaman|didwana|makeup artists",
     "didwana-kuchaman|didwana|photographers & films",
     "didwana-kuchaman|didwana|wedding rental dresses",
     "didwana-kuchaman|didwana|wedding venues"
   ],
   "vendors": [
+    {
+      "id": "RWG-20261102-120643-373",
+      "business": "Ridhi Sidhi studio ",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Photographers & Films"
+    },
+    {
+      "id": "RWG-20261102-124314-981",
+      "business": "Kanhiyya studio kerap",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Photographers & Films"
+    },
+    {
+      "id": "RWG-20261104-220416-518",
+      "business": "Infinity love event",
+      "district": "Ajmer",
+      "city": "Ajmer",
+      "category": "Wedding Planners"
+    },
     {
       "id": "RWG-REAL-CHITRANSH",
       "business": "Chitransh Color Lab & Studio",
@@ -22,18 +44,18 @@
       "category": "Wedding Rental Dresses"
     },
     {
-      "id": "RWG-REAL-MADAN-MOHAN",
-      "business": "Madan Mohan Resort",
-      "district": "Didwana-Kuchaman",
-      "city": "Didwana",
-      "category": "Wedding Venues"
-    },
-    {
       "id": "RWG-REAL-HARSHITA-SALON",
       "business": "Harshita Beauty Salon",
       "district": "Didwana-Kuchaman",
       "city": "Didwana",
       "category": "Makeup Artists"
+    },
+    {
+      "id": "RWG-REAL-MADAN-MOHAN",
+      "business": "Madan Mohan Resort",
+      "district": "Didwana-Kuchaman",
+      "city": "Didwana",
+      "category": "Wedding Venues"
     }
   ]
 }
