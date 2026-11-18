@@ -53,7 +53,12 @@ jobs:
             if p.is_file() and (p.suffix.lower() in extensions or p.name=='CNAME'):shutil.copy2(p,out/p.name)
           for name in ('rajasthan','vendors','assets'):
             if (root/name).is_dir():shutil.copytree(root/name,out/name)
-          required=('index.html','vendor-register.html','admin-review.html','robots.txt','sitemap.xml')
+          registration=out/'register'
+          registration.mkdir()
+          form=(out/'vendor-register.html').read_text(encoding='utf-8')
+          assert '<head>' in form
+          (registration/'index.html').write_text(form.replace('<head>','<head><base href="/">',1),encoding='utf-8')
+          required=('index.html','vendor-register.html','register/index.html','admin-review.html','robots.txt','sitemap.xml')
           for name in required:assert (out/name).is_file(),name
           assert not list(out.rglob('*.gs'))
           assert not (out/'backend').exists() and not (out/'tests').exists()
